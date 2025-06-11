@@ -85,7 +85,8 @@ This process allows Customers to submit feedback on products and services. Staff
 graph TD
     A[Customer] -->|Submit Feedback| P6["6.0 Customer Feedback Management"]
     P6 <-->|Read/Write Feedback| DS7["Feedback Data Store"]
-    DS7 -->|View Feedback| B["Staff/Admin"]
+    B["Staff/Admin"] -->|View Feedback Request| P6
+    P6 -->|Feedback Information| B
 ```
 
 ### 7. Report Generation (Process 7.0)
