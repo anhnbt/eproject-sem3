@@ -4,70 +4,61 @@
 
 ### Mục tiêu hệ thống
 - Xây dựng hệ thống quản lý phòng khám toàn diện, giúp tối ưu hóa quy trình làm việc
-- Cải thiện hiệu quả quản lý thông tin bệnh nhân và hồ sơ y tế
-- Tự động hóa các quy trình đặt lịch và quản lý lịch hẹn
 - Giúp phòng khám theo dõi doanh thu và quản lý thanh toán hiệu quả
+- Hỗ trợ quản lý sản phẩm (thuốc, máy móc khoa học) và bán hàng trực tuyến.
+- Quản lý và theo dõi các hoạt động giáo dục.
 
 ### Đối tượng sử dụng
-1. **Quản trị viên (Admin)**: Quản lý toàn bộ hệ thống
-2. **Bác sĩ**: Xem và cập nhật thông tin bệnh nhân, lịch hẹn, kê đơn thuốc
-3. **Y tá**: Hỗ trợ bác sĩ, quản lý thông tin bệnh nhân
-4. **Lễ tân (Receptionist)**: Đặt lịch hẹn, quản lý tiếp đón bệnh nhân
-5. **Bệnh nhân**: Xem lịch hẹn, lịch sử khám bệnh, đơn thuốc
+1. **Quản trị viên (Admin)**: Quản lý toàn bộ hệ thống, bao gồm dữ liệu khách hàng, chi tiết giao dịch trực tuyến, và theo dõi các hoạt động giáo dục.
+2. **Nhân viên (Staff/Instructor)**: Quản lý và thực hiện các hoạt động giáo dục (ví dụ: giảng dạy bài giảng, hướng dẫn thực hành, tổ chức hội thảo).
+3. **Khách hàng (Client/Customer)**: Đăng ký tài khoản, thực hiện mua hàng trực tuyến (máy móc, thuốc), và cung cấp phản hồi.
 
 ## 2. Yêu cầu chức năng
 
 ### Quản lý người dùng
 - Đăng ký, đăng nhập, phân quyền
 - Quản lý thông tin cá nhân
-- Phục hồi mật khẩu
+- Quên mật khẩu
 - Đăng xuất hệ thống
 
-### Quản lý bệnh nhân
-- Đăng ký bệnh nhân mới
-- Cập nhật thông tin bệnh nhân
-- Tìm kiếm thông tin bệnh nhân
-- Xem lịch sử khám bệnh
-- Quản lý hồ sơ y tế
+### Quản lý nhân viên/giảng viên (Staff/Instructors)
+- Thêm/sửa/xóa thông tin nhân viên/giảng viên
+- Quản lý thông tin chuyên môn/lĩnh vực giảng dạy
 
-### Quản lý bác sĩ
-- Thêm/sửa/xóa thông tin bác sĩ
-- Quản lý chuyên khoa
-- Quản lý lịch làm việc của bác sĩ
-- Xem thống kê khám bệnh của từng bác sĩ
+### Quản lý sản phẩm (Product Management)
+- Quản lý thông tin thuốc (Medicines).
+- Quản lý thông tin máy móc khoa học (Scientific Machines).
+- Quản lý danh mục sản phẩm, giá và tồn kho.
+- Theo dõi việc sử dụng/bán thuốc (tập trung vào quản lý kho).
 
-### Quản lý lịch hẹn
-- Đặt lịch hẹn mới
-- Chỉnh sửa/hủy lịch hẹn
-- Tìm kiếm lịch hẹn
-- Gửi thông báo nhắc lịch hẹn
-- Xem lịch làm việc của bác sĩ
+### Quản lý mua hàng trực tuyến (Online Purchase Management)
+- Chức năng duyệt và tìm kiếm sản phẩm.
+- Chức năng giỏ hàng.
+- Xử lý đơn hàng (đặt hàng, xác nhận, theo dõi).
+- Tích hợp cổng thanh toán trực tuyến (Cân nhắc).
+- Quản lý phản hồi của khách hàng về sản phẩm và dịch vụ.
 
-### Quản lý dược phẩm
-- Thêm/sửa/xóa thông tin thuốc
-- Quản lý kho thuốc
-- Cảnh báo thuốc sắp hết hàng
-- Theo dõi việc sử dụng thuốc
-
-### Quản lý đơn thuốc
-- Tạo đơn thuốc mới
-- Tìm kiếm đơn thuốc
-- In đơn thuốc
-- Xem lịch sử đơn thuốc
+### Quản lý hoạt động giáo dục (Educational Activities Management)
+- Tạo và quản lý thông tin các khóa học, hội thảo, bài giảng, buổi thực hành.
+- Quản lý lịch trình và địa điểm.
+- Quản lý đăng ký tham gia từ khách hàng/học viên.
+- Quản lý tài liệu và nội dung học tập.
+- Theo dõi và đánh giá hiệu quả hoạt động giáo dục.
 
 ### Quản lý thanh toán
-- Tạo hóa đơn mới
-- Xử lý thanh toán
-- In hóa đơn
-- Xem lịch sử thanh toán
+- Tạo hóa đơn mới (cho đơn hàng trực tuyến)
+- Xử lý thanh toán (qua cổng thanh toán) (Cân nhắc)
+- In hóa đơn / Gửi hóa đơn điện tử (Cân nhắc)
+- Xem lịch sử thanh toán / giao dịch
 - Báo cáo doanh thu
 
 ### Báo cáo và thống kê
-- Báo cáo bệnh nhân theo thời gian
 - Báo cáo doanh thu theo thời gian
-- Thống kê lượt khám bệnh
-- Báo cáo sử dụng thuốc
+- Báo cáo sử dụng thuốc (doanh số, tồn kho)
 - Xuất báo cáo dạng Excel/PDF
+- Báo cáo về tình hình bán hàng sản phẩm (máy móc, thuốc).
+- Báo cáo về hiệu quả các hoạt động giáo dục.
+- Báo cáo về tương tác và phản hồi của khách hàng.
 
 ## 3. Yêu cầu phi chức năng
 
@@ -99,36 +90,35 @@
 
 ## 4. Quy trình nghiệp vụ
 
-### Quy trình đăng ký bệnh nhân mới
-1. Tiếp nhận thông tin cá nhân của bệnh nhân
-2. Nhập thông tin vào hệ thống
-3. Tạo mã bệnh nhân
-4. Lưu thông tin vào cơ sở dữ liệu
+### Quy trình đăng ký tài khoản khách hàng
+1. Khách hàng truy cập trang đăng ký trên website/ứng dụng.
+2. Khách hàng điền thông tin yêu cầu (tên, email, mật khẩu, thông tin liên hệ).
+3. Hệ thống kiểm tra và xác thực thông tin.
+4. Tạo tài khoản mới và lưu vào cơ sở dữ liệu.
+5. Gửi email xác nhận cho khách hàng.
 
-### Quy trình đặt lịch khám
-1. Bệnh nhân/lễ tân chọn ngày và giờ mong muốn
-2. Hệ thống kiểm tra lịch làm việc của bác sĩ
-3. Xác nhận lịch hẹn
-4. Gửi thông báo cho bệnh nhân và bác sĩ
+### Quy trình mua hàng trực tuyến
+1. Khách hàng duyệt xem sản phẩm trên website/ứng dụng.
+2. Khách hàng thêm sản phẩm mong muốn vào giỏ hàng.
+3. Khách hàng tiến hành thanh toán, chọn địa chỉ giao hàng (nếu có) và phương thức thanh toán.
+4. Hệ thống chuyển đến cổng thanh toán để xử lý giao dịch.
+5. Sau khi thanh toán thành công, hệ thống xác nhận đơn hàng.
+6. Hệ thống cập nhật trạng thái đơn hàng, thông báo cho khách hàng và bộ phận xử lý đơn hàng.
+7. Tạo và gửi hóa đơn điện tử cho khách hàng.
 
-### Quy trình khám bệnh
-1. Bệnh nhân đến khám theo lịch hẹn
-2. Lễ tân xác nhận bệnh nhân đã đến
-3. Bác sĩ khám và ghi nhận kết quả
-4. Kê đơn thuốc nếu cần
-5. Chuyển bệnh nhân đến thanh toán
+### Quy trình quản lý hoạt động giáo dục
+1. Quản trị viên hoặc nhân viên được phân công tạo mới một hoạt động giáo dục (ví dụ: hội thảo, khóa học).
+2. Nhập các thông tin chi tiết: tên hoạt động, mô tả, nội dung, lịch trình, địa điểm, giảng viên, số lượng người tham gia tối đa, chi phí (nếu có).
+3. Công khai hoạt động trên hệ thống để khách hàng có thể xem và đăng ký.
+4. Khách hàng đăng ký tham gia hoạt động giáo dục.
+5. Nhân viên quản lý danh sách đăng ký, gửi thông báo nhắc nhở.
+6. Sau khi hoạt động kết thúc, cập nhật trạng thái và thu thập phản hồi (nếu có).
 
-### Quy trình kê đơn thuốc
-1. Bác sĩ chọn các thuốc cần kê
-2. Nhập liều lượng và hướng dẫn sử dụng
-3. Lưu và in đơn thuốc
-4. Cập nhật vào hồ sơ bệnh án
-
-### Quy trình thanh toán
-1. Tính tổng chi phí (khám bệnh, thuốc, dịch vụ)
-2. Bệnh nhân thanh toán
-3. In hóa đơn
-4. Cập nhật trạng thái thanh toán
+### Quy trình quản lý sản phẩm
+1. Quản trị viên thêm mới hoặc cập nhật thông tin sản phẩm (thuốc, máy móc).
+2. Nhập các chi tiết: tên sản phẩm, mô tả, hình ảnh, danh mục, nhà cung cấp, giá bán, đơn vị tính.
+3. Quản lý số lượng tồn kho, cập nhật khi có giao dịch mua bán hoặc nhập hàng.
+4. Thiết lập cảnh báo khi số lượng tồn kho xuống dưới mức quy định.
 
 ## 5. Yêu cầu dữ liệu
 
@@ -136,54 +126,51 @@
 - Thông tin tài khoản (username, password)
 - Thông tin cá nhân (họ tên, ngày sinh, giới tính)
 - Thông tin liên hệ (email, số điện thoại, địa chỉ)
-- Vai trò trong hệ thống
+- Vai trò trong hệ thống (Admin, Staff/Instructor, Customer)
 
-### Dữ liệu bệnh nhân
-- Thông tin cá nhân
-- Tiền sử bệnh án
-- Dị ứng
-- Nhóm máu
-- Thông tin liên hệ khẩn cấp
-- Số bảo hiểm y tế
+### Dữ liệu nhân viên/giảng viên (Staff/Instructors)
+- Thông tin cá nhân (họ tên, thông tin liên hệ)
+- Chuyên môn/Lĩnh vực giảng dạy hoặc phụ trách
+- Kinh nghiệm làm việc, bằng cấp/chứng chỉ liên quan
+- Lịch giảng dạy/hoạt động (nếu có)
 
-### Dữ liệu bác sĩ
-- Thông tin cá nhân
-- Chuyên khoa
-- Kinh nghiệm
-- Lịch làm việc
-- Số giấy phép hành nghề
+### Dữ liệu sản phẩm (Products)
+- Mã sản phẩm, tên sản phẩm
+- Mô tả chi tiết, hình ảnh
+- Danh mục sản phẩm
+- Đơn vị tính, giá bán, giá nhập (nếu quản lý)
+- Số lượng tồn kho
+- Nhà cung cấp
+- Ngày hết hạn (đối với các sản phẩm như thuốc)
+- Thuộc tính đặc thù (ví dụ: thông số kỹ thuật cho máy móc)
 
-### Dữ liệu lịch hẹn
-- Thông tin bệnh nhân
-- Thông tin bác sĩ
-- Ngày giờ hẹn
-- Thời gian dự kiến
-- Trạng thái lịch hẹn
-- Ghi chú
+### Dữ liệu đơn hàng/giao dịch (Orders/Transactions)
+- Mã đơn hàng
+- Thông tin khách hàng (liên kết đến Dữ liệu người dùng/khách hàng)
+- Danh sách sản phẩm trong đơn hàng (sản phẩm, số lượng, đơn giá, thành tiền)
+- Tổng giá trị đơn hàng
+- Phương thức thanh toán, trạng thái thanh toán
+- Ngày giờ đặt hàng, ngày giờ thanh toán
+- Thông tin giao hàng (địa chỉ, trạng thái vận chuyển nếu có)
+- Hóa đơn liên quan
 
-### Dữ liệu thuốc
-- Tên thuốc
-- Thông tin chi tiết
-- Đơn vị
-- Giá
-- Số lượng trong kho
-- Ngày hết hạn
+### Dữ liệu khách hàng (Customers/Clients)
+- Mã khách hàng (liên kết với Dữ liệu người dùng).
+- Loại khách hàng (cá nhân, doanh nghiệp).
+- Thông tin liên hệ chi tiết (địa chỉ giao hàng mặc định, v.v.).
+- Lịch sử mua hàng và giao dịch.
+- Lịch sử tham gia hoạt động giáo dục.
+- Phản hồi và đánh giá.
 
-### Dữ liệu đơn thuốc
-- Thông tin bệnh nhân
-- Thông tin bác sĩ
-- Danh sách thuốc
-- Liều lượng
-- Hướng dẫn sử dụng
-- Ngày kê đơn
-
-### Dữ liệu thanh toán
-- Thông tin bệnh nhân
-- Chi tiết dịch vụ
-- Tổng tiền
-- Phương thức thanh toán
-- Trạng thái thanh toán
-- Ngày thanh toán
+### Dữ liệu hoạt động giáo dục (Educational Activities)
+- Mã hoạt động, tên hoạt động.
+- Mô tả chi tiết, nội dung, mục tiêu.
+- Loại hình (hội thảo, khóa học, bài giảng).
+- Lịch trình (thời gian bắt đầu, kết thúc), địa điểm (trực tuyến/ngoại tuyến).
+- Thông tin giảng viên (liên kết đến Dữ liệu nhân viên/giảng viên).
+- Số lượng người tham gia tối đa, chi phí tham gia (nếu có).
+- Danh sách người đăng ký/tham gia.
+- Tài liệu liên quan.
 
 ## 6. Giao diện người dùng
 
@@ -194,25 +181,30 @@
 - Màn hình thông báo
 
 ### Màn hình quản trị viên
-- Quản lý người dùng
-- Quản lý cấu hình hệ thống
-- Xem báo cáo tổng hợp
-- Quản lý dịch vụ và giá cả
+- Quản lý người dùng (Admin, Staff, Customer).
+- Quản lý sản phẩm (thuốc, máy móc khoa học) và danh mục.
+- Quản lý đơn hàng và giao dịch trực tuyến.
+- Quản lý hoạt động giáo dục (tạo, cập nhật, theo dõi).
+- Xem báo cáo tổng hợp (doanh thu, bán hàng, hoạt động giáo dục).
+- Quản lý cấu hình hệ thống.
+- Quản lý nội dung website (tin tức, giới thiệu - nếu có).
 
-### Màn hình bác sĩ
-- Xem lịch hẹn trong ngày
-- Quản lý hồ sơ bệnh nhân
-- Kê đơn thuốc
-- Ghi chép bệnh án
+### Màn hình nhân viên (Staff/Instructor)
+- Xem và quản lý lịch hoạt động giáo dục được phân công.
+- Cập nhật nội dung, tài liệu cho hoạt động giáo dục.
+- Quản lý danh sách học viên/người tham gia hoạt động.
+- Giao tiếp với học viên (gửi thông báo, trả lời câu hỏi - nếu có).
+- Nhập điểm/đánh giá kết quả học tập (nếu có).
 
-### Màn hình lễ tân
-- Đăng ký bệnh nhân mới
-- Quản lý lịch hẹn
-- Quản lý hàng đợi bệnh nhân
-- Xử lý thanh toán
-
-### Màn hình bệnh nhân
-- Xem thông tin cá nhân
-- Xem lịch hẹn
-- Xem lịch sử khám bệnh
-- Xem đơn thuốc
+### Màn hình khách hàng (Customer/Client)
+- Đăng ký/Đăng nhập tài khoản.
+- Xem trang chủ với các sản phẩm nổi bật, hoạt động giáo dục mới.
+- Duyệt, tìm kiếm sản phẩm theo danh mục, từ khóa.
+- Xem chi tiết sản phẩm (thông tin, hình ảnh, giá, đánh giá).
+- Quản lý giỏ hàng (thêm, xóa, cập nhật số lượng).
+- Thực hiện quy trình đặt hàng và thanh toán trực tuyến.
+- Quản lý tài khoản cá nhân (cập nhật thông tin, đổi mật khẩu).
+- Xem lịch sử đơn hàng và trạng thái xử lý.
+- Xem danh sách các hoạt động giáo dục, đăng ký tham gia.
+- Xem lịch sử tham gia hoạt động giáo dục.
+- Gửi phản hồi, đánh giá sản phẩm, dịch vụ.
