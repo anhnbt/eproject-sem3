@@ -1,12 +1,11 @@
 # Data Flow Diagram (DFD)
 
 ## Context Diagram (DFD Level 0)
-
 ```mermaid
 graph TD
-    Customer[Customer] <-->|User & Order Info, Educational Activity Info| System[\"Clinic Management System (Accounts, Sales, Educational Activities)\"]
-    Staff[Staff (Lecturer, etc.)] <-->|Educational Activity & Order Management Info| System
-    Admin[Admin] <-->|System & User Management Info, Reports| System
+        Customer[Customer] <--> System[Clinic Management System]
+        Staff[Staff] <--> System
+        Admin[Admin] <--> System
 ```
 
 ## Level 1 DFD
