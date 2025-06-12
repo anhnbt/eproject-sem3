@@ -1,0 +1,80 @@
+@model IEnumerable<ClinicManagement.Core.Domain.Entities.Patient>
+
+@{
+  ViewData["Title"] = "Patients";
+}
+
+<div class="container-fluid">
+  <h2>Patient Management</h2>
+
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <form asp-action="Index" method="get" class="form-inline">
+        <div class="input-group">
+          <input type="text" name="searchTerm" class="form-control" placeholder="Search patients..." />
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-primary">
+              <i class="fa fa-search"></i> Search
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-6 text-right">
+      <a asp-action="Create" class="btn btn-success">
+        <i class="fa fa-plus"></i> Add New Patient
+      </a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      <h5 class="mb-0">Patient List</h5>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Gender</th>
+              <th>Age</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Medical Insurance</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach (var item in Model)
+            {
+              <tr>
+                <td>@item.PatientId</td>
+                <td>@item.FullName</td>
+                <td>@item.Gender</td>
+                <td>@item.Age</td>
+                <td>@item.PhoneNumber</td>
+                <td>@item.Email</td>
+                <td>@(string.IsNullOrEmpty(item.MedicalInsuranceNumber) ? "No" : "Yes")</td>
+                <td>
+                  <div class="btn-group">
+                    <a asp-action="Edit" asp-route-id="@item.PatientId" class="btn btn-sm btn-warning">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                    <a asp-action="Details" asp-route-id="@item.PatientId" class="btn btn-sm btn-info">
+                      <i class="fa fa-info-circle"></i>
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@item.PatientId" class="btn btn-sm btn-danger">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

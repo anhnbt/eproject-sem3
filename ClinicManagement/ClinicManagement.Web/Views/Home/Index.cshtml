@@ -1,8 +1,183 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Dashboard";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container-fluid dashboard">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2>Clinic Management Dashboard</h2>
+            <p class="text-muted">Welcome to the Clinic Management System. Today is @DateTime.Now.ToString("dddd, dd MMMM yyyy")</p>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Total Patients</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@(ViewBag.PatientCount ?? 0)</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Doctors</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@(ViewBag.DoctorCount ?? 0)</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-user-md fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                Today's Appointments</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@(ViewBag.TodayAppointmentCount ?? 0)</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar-day fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Upcoming Appointments</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@(ViewBag.UpcomingAppointmentCount ?? 0)</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Today's Appointments</h6>
+                    <div class="dropdown no-arrow">
+                        <a href="@Url.Action("Index", "Appointment")" class="btn btn-sm btn-primary">
+                            <i class="fas fa-calendar-alt"></i> View All
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    @if (ViewBag.TodayAppointments != null && ((IEnumerable<ClinicManagement.Core.Domain.Entities.Appointment>)ViewBag.TodayAppointments).Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>Patient</th>
+                                        <th>Doctor</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var appointment in ViewBag.TodayAppointments)
+                                    {
+                                        <tr>
+                                            <td>@appointment.ScheduledTime.ToString("hh\\:mm")</td>
+                                            <td>@appointment.Patient.FullName</td>
+                                            <td>@appointment.Doctor.User.FullName</td>
+                                            <td>
+                                                @{
+                                                    var statusClass = appointment.Status switch
+                                                    {
+                                                        "Scheduled" => "badge badge-warning",
+                                                        "Completed" => "badge badge-success",
+                                                        "Cancelled" => "badge badge-danger",
+                                                        "No-Show" => "badge badge-secondary",
+                                                        _ => "badge badge-info"
+                                                    };
+                                                }
+                                                <span class="@statusClass">@appointment.Status</span>
+                                            </td>
+                                            <td>
+                                                <a href="@Url.Action("Details", "Appointment", new { id = appointment.AppointmentId })" class="btn btn-sm btn-info">
+                                                    <i class="fas fa-info-circle"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-center text-muted py-4">No appointments scheduled for today.</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Quick Actions</h6>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        <a href="@Url.Action("Create", "Appointment")" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1"><i class="fas fa-calendar-plus"></i> New Appointment</h5>
+                            </div>
+                            <p class="mb-1">Schedule a new appointment for a patient</p>
+                        </a>
+                        <a href="@Url.Action("Create", "Patient")" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1"><i class="fas fa-user-plus"></i> Register Patient</h5>
+                            </div>
+                            <p class="mb-1">Add a new patient to the system</p>
+                        </a>
+                        <a href="@Url.Action("Index", "Patient")" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1"><i class="fas fa-search"></i> Find Patient</h5>
+                            </div>
+                            <p class="mb-1">Search for existing patient records</p>
+                        </a>
+                        <a href="@Url.Action("Index", "Doctor")" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1"><i class="fas fa-user-md"></i> Doctors</h5>
+                            </div>
+                            <p class="mb-1">Manage doctors and their schedules</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

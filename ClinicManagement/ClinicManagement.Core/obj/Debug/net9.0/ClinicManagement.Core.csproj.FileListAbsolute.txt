@@ -1,0 +1,5 @@
+D:\OneDrive\eproject-sem3\ClinicManagement\ClinicManagement.Core\obj\Debug\net9.0\ClinicManagement.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\OneDrive\eproject-sem3\ClinicManagement\ClinicManagement.Core\obj\Debug\net9.0\ClinicManagement.Core.AssemblyInfoInputs.cache
+D:\OneDrive\eproject-sem3\ClinicManagement\ClinicManagement.Core\obj\Debug\net9.0\ClinicManagement.Core.AssemblyInfo.cs
+D:\OneDrive\eproject-sem3\ClinicManagement\ClinicManagement.Core\obj\Debug\net9.0\ClinicManagement.Core.csproj.CoreCompileInputs.cache
+D:\OneDrive\eproject-sem3\ClinicManagement\ClinicManagement.Core\obj\Debug\net9.0\ClinicManagement.Core.sourcelink.json

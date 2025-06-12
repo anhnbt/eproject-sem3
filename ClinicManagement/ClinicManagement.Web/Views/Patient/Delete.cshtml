@@ -1,0 +1,65 @@
+@model ClinicManagement.Core.Domain.Entities.Patient
+
+@{
+    ViewData["Title"] = "Delete Patient";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h4>Confirm Delete Patient</h4>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning">
+                        <h5>Are you sure you want to delete this patient?</h5>
+                        <p>This action cannot be undone. All associated records, appointments, and prescriptions will remain in the system but will no longer be linked to an active patient.</p>
+                    </div>
+                    
+                    <div class="card mb-4">
+                        <div class="card-header bg-secondary text-white">
+                            <h5>Patient Information</h5>
+                        </div>
+                        <div class="card-body">
+                            <dl class="row">
+                                <dt class="col-sm-3">Patient ID</dt>
+                                <dd class="col-sm-9">@Model.PatientId</dd>
+                                
+                                <dt class="col-sm-3">Name</dt>
+                                <dd class="col-sm-9">@Model.FullName</dd>
+                                
+                                <dt class="col-sm-3">Date of Birth</dt>
+                                <dd class="col-sm-9">@Model.DateOfBirth.ToShortDateString()</dd>
+                                
+                                <dt class="col-sm-3">Gender</dt>
+                                <dd class="col-sm-9">@Model.Gender</dd>
+                                
+                                <dt class="col-sm-3">Phone</dt>
+                                <dd class="col-sm-9">@Model.PhoneNumber</dd>
+                                
+                                <dt class="col-sm-3">Email</dt>
+                                <dd class="col-sm-9">@Model.Email</dd>
+                                
+                                <dt class="col-sm-3">Medical Insurance</dt>
+                                <dd class="col-sm-9">@(string.IsNullOrEmpty(Model.MedicalInsuranceNumber) ? "Not provided" : Model.MedicalInsuranceNumber)</dd>
+                            </dl>
+                        </div>
+                    </div>
+                    
+                    <form asp-action="Delete" method="post">
+                        <input type="hidden" asp-for="PatientId" />
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fa fa-trash"></i> Delete Patient
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="fa fa-arrow-left"></i> Back to List
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

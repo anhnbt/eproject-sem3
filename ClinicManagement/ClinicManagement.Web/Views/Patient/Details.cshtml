@@ -1,0 +1,192 @@
+@model ClinicManagement.Core.Domain.Entities.Patient
+
+@{
+    ViewData["Title"] = "Patient Details";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h4>Patient Details</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card mb-4">
+                                <div class="card-header bg-primary text-white">
+                                    <h5>Personal Information</h5>
+                                </div>
+                                <div class="card-body">
+                                    <dl class="row">
+                                        <dt class="col-sm-4">Patient ID</dt>
+                                        <dd class="col-sm-8">@Model.PatientId</dd>
+                                        
+                                        <dt class="col-sm-4">Full Name</dt>
+                                        <dd class="col-sm-8">@Model.FullName</dd>
+                                        
+                                        <dt class="col-sm-4">Date of Birth</dt>
+                                        <dd class="col-sm-8">@Model.DateOfBirth.ToShortDateString()</dd>
+                                        
+                                        <dt class="col-sm-4">Age</dt>
+                                        <dd class="col-sm-8">@Model.Age years</dd>
+                                        
+                                        <dt class="col-sm-4">Gender</dt>
+                                        <dd class="col-sm-8">@Model.Gender</dd>
+                                        
+                                        <dt class="col-sm-4">Blood Type</dt>
+                                        <dd class="col-sm-8">@(string.IsNullOrEmpty(Model.BloodType) ? "Not specified" : Model.BloodType)</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="card mb-4">
+                                <div class="card-header bg-primary text-white">
+                                    <h5>Contact Information</h5>
+                                </div>
+                                <div class="card-body">
+                                    <dl class="row">
+                                        <dt class="col-sm-4">Phone</dt>
+                                        <dd class="col-sm-8">@Model.PhoneNumber</dd>
+                                        
+                                        <dt class="col-sm-4">Email</dt>
+                                        <dd class="col-sm-8">@Model.Email</dd>
+                                        
+                                        <dt class="col-sm-4">Address</dt>
+                                        <dd class="col-sm-8">@Model.Address</dd>
+                                        
+                                        <dt class="col-sm-4">Emergency Contact</dt>
+                                        <dd class="col-sm-8">@Model.EmergencyContactName</dd>
+                                        
+                                        <dt class="col-sm-4">Emergency Phone</dt>
+                                        <dd class="col-sm-8">@Model.EmergencyContactPhone</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card mb-4">
+                                <div class="card-header bg-primary text-white">
+                                    <h5>Medical Information</h5>
+                                </div>
+                                <div class="card-body">
+                                    <dl class="row">
+                                        <dt class="col-sm-3">Medical Insurance Number</dt>
+                                        <dd class="col-sm-9">@(string.IsNullOrEmpty(Model.MedicalInsuranceNumber) ? "Not provided" : Model.MedicalInsuranceNumber)</dd>
+                                    </dl>
+                                    
+                                    @if (Model.PatientRecords != null && Model.PatientRecords.Any())
+                                    {
+                                        <h6>Medical History</h6>
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Doctor</th>
+                                                    <th>Diagnosis</th>
+                                                    <th>Notes</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var record in Model.PatientRecords.OrderByDescending(r => r.RecordDate))
+                                                {
+                                                    <tr>
+                                                        <td>@record.RecordDate.ToShortDateString()</td>
+                                                        <td>@(record.Doctor?.User?.FirstName + " " + record.Doctor?.User?.LastName)</td>
+                                                        <td>@record.Diagnosis</td>
+                                                        <td>@record.Notes</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    }
+                                    else
+                                    {
+                                        <p class="text-muted">No medical records available.</p>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card mb-4">
+                                <div class="card-header bg-primary text-white">
+                                    <h5>Appointments</h5>
+                                </div>
+                                <div class="card-body">
+                                    @if (Model.Appointments != null && Model.Appointments.Any())
+                                    {
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Time</th>
+                                                    <th>Doctor</th>
+                                                    <th>Status</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var appointment in Model.Appointments.OrderByDescending(a => a.ScheduledDate).ThenBy(a => a.ScheduledTime))
+                                                {
+                                                    <tr>
+                                                        <td>@appointment.ScheduledDate.ToShortDateString()</td>
+                                                        <td>@appointment.ScheduledTime.ToString(@"hh\:mm")</td>
+                                                        <td>@(appointment.Doctor?.User?.FirstName + " " + appointment.Doctor?.User?.LastName)</td>
+                                                        <td>
+                                                            @{
+                                                                var statusClass = appointment.Status switch
+                                                                {
+                                                                    "Scheduled" => "badge badge-warning",
+                                                                    "Completed" => "badge badge-success",
+                                                                    "Cancelled" => "badge badge-danger",
+                                                                    "No-Show" => "badge badge-secondary",
+                                                                    _ => "badge badge-info"
+                                                                };
+                                                            }
+                                                            <span class="@statusClass">@appointment.Status</span>
+                                                        </td>
+                                                        <td>
+                                                            <a href="@Url.Action("Details", "Appointment", new { id = appointment.AppointmentId })" class="btn btn-sm btn-info">
+                                                                <i class="fa fa-info-circle"></i> Details
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    }
+                                    else
+                                    {
+                                        <p class="text-muted">No appointment history available.</p>
+                                    }
+                                    
+                                    <a href="@Url.Action("Create", "Appointment", new { patientId = Model.PatientId })" class="btn btn-success mt-3">
+                                        <i class="fa fa-plus"></i> Schedule New Appointment
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <a asp-action="Edit" asp-route-id="@Model.PatientId" class="btn btn-warning">
+                            <i class="fa fa-edit"></i> Edit
+                        </a>
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="fa fa-arrow-left"></i> Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
