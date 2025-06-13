@@ -109,48 +109,25 @@ This diagram shows how Admin manages user accounts with full administrative priv
 
 ```mermaid
 graph TD
-    Admin[Admin] -->|Create User Account Request| P1_1["1.1 Create User Account"]
-    Admin -->|Edit User Profile Request| P1_2["1.2 Edit User Profile"]
-    Admin -->|Delete User Account Request| P1_3["1.3 Delete User Account"]
-    Admin -->|View All Users Request| P1_4["1.4 View All Users"]
-    Admin -->|Search Users Request| P1_5["1.5 Search Users"]
-    Admin -->|Manage User Roles Request| P1_6["1.6 Manage User Roles"]
-    Admin -->|Reset User Password Request| P1_7["1.7 Reset User Password"]
-    Admin -->|Generate User Reports Request| P1_8["1.8 Generate User Reports"]
-    Admin -->|Bulk User Operations Request| P1_9["1.9 Bulk User Operations"]
+    Admin[Admin] -->|View All Users Request| P1_1["1.1 View All Users"]
+    Admin -->|Search Users Request| P1_2["1.2 Search Users"]
+    Admin -->|Manage User Roles Request| P1_3["1.3 Manage User Roles"]
     
-    P1_1 -->|User Created Confirmation| Admin
-    P1_2 -->|Profile Updated Confirmation| Admin
-    P1_3 -->|User Deleted Confirmation| Admin
-    P1_4 -->|All Users List| Admin
-    P1_5 -->|User Search Results| Admin
-    P1_6 -->|Role Management Confirmation| Admin
-    P1_7 -->|Password Reset Confirmation| Admin
-    P1_8 -->|User Analytics Report| Admin
-    P1_9 -->|Bulk Operation Status| Admin
-    
-    P1_1 -->|Write New User Data| DS1["User Data Store"]
-    P1_2 <-->|Read/Write User Data| DS1
-    P1_3 -->|Delete User Data| DS1
-    P1_4 -->|Read User Data| DS1
-    P1_5 -->|Read User Data| DS1
-    P1_6 <-->|Read/Write User Role Data| DS1
-    P1_7 <-->|Read/Write Password Data| DS1
-    P1_8 -->|Read User Data| DS1
-    P1_9 <-->|Read/Write User Data| DS1
+    P1_1 -->|All Users List| Admin
+    P1_2 -->|User Search Results| Admin
+    P1_3 -->|Role Management Confirmation| Admin
+
+    P1_1 -->|Read User Data| DS1["User Data Store"]
+    P1_2 -->|Read User Data| DS1
+    P1_3 <-->|Read/Write User Role Data| DS1
+
 ```
 
 **Process Descriptions:**
 
-- **1.1 Create User Account**: Admin can create new user accounts for Staff, Customer, or other Admin with complete access to all fields and permissions.
-- **1.2 Edit User Profile**: Admin can modify any user's profile information including personal details, contact information, and account settings.
-- **1.3 Delete User Account**: Admin can remove user accounts with override capabilities and data cleanup options.
-- **1.4 View All Users**: Admin can access comprehensive user lists with advanced filtering by role, status, registration date, and activity.
-- **1.5 Search Users**: Admin can perform advanced searches across all user data with administrative filters.
-- **1.6 Manage User Roles**: Admin can assign, modify, or remove user roles and permissions for system access control.
-- **1.7 Reset User Password**: Admin can reset passwords for any user account and manage password policies.
-- **1.8 Generate User Reports**: Admin can generate detailed reports on user activity, registration trends, and system usage.
-- **1.9 Bulk User Operations**: Admin can perform bulk operations like importing users, mass updates, or batch deletions.
+- **1.1 View All Users**: Admin can access comprehensive user lists with advanced filtering by role, status, registration date, and activity.
+- **1.2 Search Users**: Admin can perform advanced searches across all user data with administrative filters.
+- **1.3 Manage User Roles**: Admin can assign, modify, or remove user roles and permissions for system access control.
 
 ### 1.2 User Management - Staff User Management (Process 1.2)
 
@@ -158,36 +135,20 @@ This diagram shows how Staff manages limited user account functions, primarily f
 
 ```mermaid
 graph TD
-    Staff[Staff] -->|View Customer Profile Request| P1_10["1.10 View Customer Profile"]
-    Staff -->|Edit Customer Profile Request| P1_11["1.11 Edit Customer Profile"]
-    Staff -->|Search Customer Request| P1_12["1.12 Search Customer"]
-    Staff -->|Reset Customer Password Request| P1_13["1.13 Reset Customer Password"]
-    Staff -->|View Staff Profile Request| P1_14["1.14 View Own Profile"]
-    Staff -->|Edit Staff Profile Request| P1_15["1.15 Edit Own Profile"]
+    Staff[Staff] -->|View Staff Profile Request| P1_4["1.4 View Own Profile"]
+    Staff -->|Edit Staff Profile Request| P1_5["1.5 Edit Own Profile"]
     
-    P1_10 -->|Customer Profile Data| Staff
-    P1_11 -->|Profile Updated Confirmation| Staff
-    P1_12 -->|Customer Search Results| Staff
-    P1_13 -->|Password Reset Confirmation| Staff
-    P1_14 -->|Own Profile Data| Staff
-    P1_15 -->|Own Profile Updated Confirmation| Staff
+    P1_4 -->|Own Profile Data| Staff
+    P1_5 -->|Own Profile Updated Confirmation| Staff
     
-    P1_10 -->|Read Customer Data| DS1["User Data Store"]
-    P1_11 <-->|Read/Write Customer Data| DS1
-    P1_12 -->|Read Customer Data| DS1
-    P1_13 <-->|Read/Write Customer Password| DS1
-    P1_14 -->|Read Own Profile Data| DS1
-    P1_15 <-->|Read/Write Own Profile Data| DS1
+    P1_4 -->|Read Own Profile Data| DS1
+    P1_5 <-->|Read/Write Own Profile Data| DS1
 ```
 
 **Process Descriptions:**
 
-- **1.10 View Customer Profile**: Staff can view customer profile information for support purposes with limited access to sensitive data.
-- **1.11 Edit Customer Profile**: Staff can modify customer profile information with restricted permissions (basic contact details only).
-- **1.12 Search Customer**: Staff can search for customer accounts to provide support using basic search criteria.
-- **1.13 Reset Customer Password**: Staff can assist customers with password resets following security protocols.
-- **1.14 View Own Profile**: Staff can view their own profile information and account settings.
-- **1.15 Edit Own Profile**: Staff can update their own profile information including contact details and preferences.
+- **1.4 View Own Profile**: Staff can view their own profile information and account settings.
+- **1.5 Edit Own Profile**: Staff can update their own profile information including contact details and preferences.
 
 ### 1.3 User Management - Customer Self-Management (Process 1.3)
 
@@ -195,45 +156,44 @@ This diagram shows how Customers manage their own accounts including registratio
 
 ```mermaid
 graph TD
-    Customer[Customer] -->|User Registration Request| P1_16["1.16 User Registration"]
-    Customer -->|Login Request| P1_17["1.17 User Login"]
-    Customer -->|View Own Profile Request| P1_18["1.18 View Own Profile"]
-    Customer -->|Edit Own Profile Request| P1_19["1.19 Edit Own Profile"]
-    Customer -->|Change Password Request| P1_20["1.20 Change Password"]
-    Customer -->|Forgot Password Request| P1_21["1.21 Forgot Password"]
-    Customer -->|Account Deactivation Request| P1_22["1.22 Account Deactivation"]
+    Customer[Customer] -->|User Registration Request| P1_6["1.6 User Registration"]
+    Customer -->|Login Request| P1_7["1.7 User Login"]
+    Customer -->|View Own Profile Request| P1_8["1.8 View Own Profile"]
+    Customer -->|Edit Own Profile Request| P1_9["1.9 Edit Own Profile"]
+    Customer -->|Change Password Request| P1_10["1.10 Change Password"]
+    Customer -->|Forgot Password Request| P1_11["1.11 Forgot Password"]
+    Customer -->|Account Deactivation Request| P1_12["1.12 Account Deactivation"]
     
-    P1_16 -->|Registration Confirmation| Customer
-    P1_17 -->|Login Success/Failure| Customer
-    P1_18 -->|Own Profile Data| Customer
-    P1_19 -->|Profile Updated Confirmation| Customer
-    P1_20 -->|Password Changed Confirmation| Customer
-    P1_21 -->|Password Reset Instructions| Customer
-    P1_22 -->|Account Deactivation Confirmation| Customer
+    P1_6 -->|Registration Confirmation| Customer
+    P1_7 -->|Login Success/Failure| Customer
+    P1_8 -->|Own Profile Data| Customer
+    P1_9 -->|Profile Updated Confirmation| Customer
+    P1_10 -->|Password Changed Confirmation| Customer
+    P1_11 -->|Password Reset Instructions| Customer
+    P1_12 -->|Account Deactivation Confirmation| Customer
     
-    P1_16 -->|Write New User Data| DS1["User Data Store"]
-    P1_17 -->|Read User Credentials| DS1
-    P1_18 -->|Read Own Profile Data| DS1
-    P1_19 <-->|Read/Write Own Profile Data| DS1
-    P1_20 <-->|Read/Write Own Password| DS1
-    P1_21 <-->|Read/Write Password Reset Token| DS1
-    P1_22 <-->|Read/Write Account Status| DS1
+    P1_6 -->|Write New User Data| DS1["User Data Store"]
+    P1_7 -->|Read User Credentials| DS1
+    P1_8 -->|Read Own Profile Data| DS1
+    P1_9 <-->|Read/Write Own Profile Data| DS1
+    P1_10 <-->|Read/Write Own Password| DS1
+    P1_11 <-->|Read/Write Password Reset Token| DS1
+    P1_12 <-->|Read/Write Account Status| DS1
 ```
 
 **Process Descriptions:**
 
-- **1.16 User Registration**: Customer can create new account by providing required information and agreeing to terms of service.
-- **1.17 User Login**: Customer can authenticate to access the system using username/email and password credentials.
-- **1.18 View Own Profile**: Customer can view their profile information including personal details, order history, and account status.
-- **1.19 Edit Own Profile**: Customer can update their profile information such as contact details, preferences, and billing information.
-- **1.20 Change Password**: Customer can change their account password following security requirements and validation.
-- **1.21 Forgot Password**: Customer can request password reset through email verification and security questions.
-- **1.22 Account Deactivation**: Customer can request to deactivate their account while maintaining data for potential reactivation.
+- **1.6 User Registration**: Customer can create new account by providing required information and agreeing to terms of service.
+- **1.7 User Login**: Customer can authenticate to access the system using username/email and password credentials.
+- **1.8 View Own Profile**: Customer can view their profile information including personal details, order history, and account status.
+- **1.9 Edit Own Profile**: Customer can update their profile information such as contact details, preferences, and billing information.
+- **1.10 Change Password**: Customer can change their account password following security requirements and validation.
+- **1.11 Forgot Password**: Customer can request password reset through email verification and security questions.
+- **1.12 Account Deactivation**: Customer can request to deactivate their account while maintaining data for potential reactivation.
 
 **Data Flows:**
-- Admin has full read/write access to all user data with administrative privileges.
-- Staff has limited access focused on customer support functions and own profile management.
-- Customer has full control over own account data but cannot access other users' information.
+- Admin has full read access to all user data with administrative privileges.
+- Staff/Customer has full control over own account data but cannot access other users' information.
 - All password operations include security measures and encryption protocols.
 
 ### 2.1 Product Management - Medicine Management (Process 2.1)
@@ -273,8 +233,6 @@ graph TD
 - All processes interact with the Product Data Store (Medicines) to read or write medicine-related data.
 - Staff receives confirmations for all modification operations and data results for query operations.
 
-// ...existing code...
-
 ### 2.2 Product Management - Medicine Management by Admin (Process 2.2)
 
 This diagram shows how Admin manages medicine information with extended privileges compared to Staff, including additional administrative functions.
@@ -286,7 +244,6 @@ graph TD
     Admin -->|Delete Medicine Request| P2_8["2.8 Delete Medicine"]
     Admin -->|View Medicine List Request| P2_9["2.9 View Medicine List"]
     Admin -->|Search Medicine Request| P2_10["2.10 Search Medicine"]
-    Admin -->|Bulk Import Medicine Request| P2_11["2.11 Bulk Import Medicine"]
     Admin -->|Generate Medicine Report Request| P2_12["2.12 Generate Medicine Report"]
     Admin -->|Manage Medicine Categories Request| P2_13["2.13 Manage Medicine Categories"]
     
@@ -295,7 +252,6 @@ graph TD
     P2_8 -->|Medicine Deleted Confirmation| Admin
     P2_9 -->|Medicine List Data| Admin
     P2_10 -->|Search Results| Admin
-    P2_11 -->|Import Status Report| Admin
     P2_12 -->|Medicine Analytics Report| Admin
     P2_13 -->|Category Management Confirmation| Admin
     
@@ -304,7 +260,6 @@ graph TD
     P2_8 -->|Delete Medicine Data| DS2_Med
     P2_9 -->|Read Medicine Data| DS2_Med
     P2_10 -->|Read Medicine Data| DS2_Med
-    P2_11 -->|Write Bulk Medicine Data| DS2_Med
     P2_12 -->|Read Medicine Data| DS2_Med
     P2_13 <-->|Read/Write Category Data| DS2_Med
 ```
@@ -316,7 +271,6 @@ graph TD
 - **2.8 Delete Medicine**: Admin can remove medicine records with override capabilities.
 - **2.9 View Medicine List**: Admin can access comprehensive medicine lists with advanced filtering.
 - **2.10 Search Medicine**: Admin can perform advanced searches with administrative filters.
-- **2.11 Bulk Import Medicine**: Admin can import multiple medicine records from external files.
 - **2.12 Generate Medicine Report**: Admin can generate detailed analytics and reports on medicine data.
 - **2.13 Manage Medicine Categories**: Admin can create, edit, and delete medicine categories.
 
@@ -351,8 +305,6 @@ graph TD
 - Customer processes only read medicine data for browsing and searching.
 - Order process writes to Order Data Store and checks stock levels in Product Data Store.
 - All customer interactions are read-only for medicine data, maintaining data security.
-
-// ...existing code...
 
 ### 2.4 Product Management - Machine Management by Staff (Process 2.4)
 
@@ -398,30 +350,21 @@ graph TD
     Admin -->|Delete Machine Request| P2_24["2.24 Delete Machine"]
     Admin -->|View Machine List Request| P2_25["2.25 View Machine List"]
     Admin -->|Search Machine Request| P2_26["2.26 Search Machine"]
-    Admin -->|Bulk Import Machine Request| P2_27["2.27 Bulk Import Machine"]
-    Admin -->|Generate Machine Report Request| P2_28["2.28 Generate Machine Report"]
     Admin -->|Manage Machine Categories Request| P2_29["2.29 Manage Machine Categories"]
-    Admin -->|Configure Machine Pricing Request| P2_30["2.30 Configure Machine Pricing"]
     
     P2_22 -->|Machine Added Confirmation| Admin
     P2_23 -->|Machine Updated Confirmation| Admin
     P2_24 -->|Machine Deleted Confirmation| Admin
     P2_25 -->|Machine List Data| Admin
     P2_26 -->|Search Results| Admin
-    P2_27 -->|Import Status Report| Admin
-    P2_28 -->|Machine Analytics Report| Admin
     P2_29 -->|Category Management Confirmation| Admin
-    P2_30 -->|Pricing Configuration Confirmation| Admin
     
     P2_22 -->|Write New Machine Data| DS2_Mac["Product Data Store (Machines)"]
     P2_23 <-->|Read/Write Machine Data| DS2_Mac
     P2_24 -->|Delete Machine Data| DS2_Mac
     P2_25 -->|Read Machine Data| DS2_Mac
     P2_26 -->|Read Machine Data| DS2_Mac
-    P2_27 -->|Write Bulk Machine Data| DS2_Mac
-    P2_28 -->|Read Machine Data| DS2_Mac
     P2_29 <-->|Read/Write Category Data| DS2_Mac
-    P2_30 <-->|Read/Write Pricing Data| DS2_Mac
 ```
 
 **Process Descriptions:**
@@ -431,10 +374,7 @@ graph TD
 - **2.24 Delete Machine**: Admin can remove machine records with override capabilities and cascade deletion options.
 - **2.25 View Machine List**: Admin can access comprehensive machine lists with advanced filtering and administrative views.
 - **2.26 Search Machine**: Admin can perform advanced searches with administrative filters and hidden machine data.
-- **2.27 Bulk Import Machine**: Admin can import multiple machine records from external files or databases.
-- **2.28 Generate Machine Report**: Admin can generate detailed analytics and reports on machine inventory, sales, and performance.
 - **2.29 Manage Machine Categories**: Admin can create, edit, and delete machine categories and subcategories.
-- **2.30 Configure Machine Pricing**: Admin can set up complex pricing rules, discounts, and promotional offers for machines.
 
 ### 2.6 Product Management - Customer Machine Interaction (Process 2.6)
 
@@ -472,10 +412,6 @@ graph TD
 - Order process writes to Order Data Store and checks stock levels in Product Data Store.
 - All customer interactions with machine data are read-only, maintaining data security and preventing unauthorized modifications.
 
-// ...existing code...
-
-// ...existing code...
-
 ### 3.1 Online Purchase Management - Admin Purchase Management (Process 3.1)
 
 This diagram shows how Admin manages the entire purchase process with full administrative control over orders, payments, and system configuration.
@@ -483,44 +419,27 @@ This diagram shows how Admin manages the entire purchase process with full admin
 ```mermaid
 graph TD
     Admin[Admin] -->|View All Orders Request| P3_1["3.1 View All Orders"]
-    Admin -->|Edit Order Request| P3_2["3.2 Edit Order"]
     Admin -->|Cancel Order Request| P3_3["3.3 Cancel Order"]
     Admin -->|Process Refund Request| P3_4["3.4 Process Refund"]
-    Admin -->|Generate Sales Report Request| P3_5["3.5 Generate Sales Report"]
     Admin -->|Manage Payment Methods Request| P3_6["3.6 Manage Payment Methods"]
-    Admin -->|Configure Pricing Request| P3_7["3.7 Configure Pricing"]
-    Admin -->|Bulk Order Operations Request| P3_8["3.8 Bulk Order Operations"]
     
     P3_1 -->|All Orders List| Admin
-    P3_2 -->|Order Updated Confirmation| Admin
     P3_3 -->|Order Cancelled Confirmation| Admin
     P3_4 -->|Refund Processed Confirmation| Admin
-    P3_5 -->|Sales Analytics Report| Admin
     P3_6 -->|Payment Configuration Confirmation| Admin
-    P3_7 -->|Pricing Updated Confirmation| Admin
-    P3_8 -->|Bulk Operation Status| Admin
     
     P3_1 -->|Read Order Data| DS3["Order Data Store"]
-    P3_2 <-->|Read/Write Order Data| DS3
     P3_3 <-->|Read/Write Order Status| DS3
     P3_4 <-->|Read/Write Payment Data| DS4["Payment Data Store"]
-    P3_5 -->|Read Order/Payment Data| DS3
-    P3_5 -->|Read Order/Payment Data| DS4
     P3_6 <-->|Read/Write Payment Config| DS4
-    P3_7 <-->|Read/Write Product Pricing| DS2["Product Data Store"]
-    P3_8 <-->|Read/Write Order Data| DS3
 ```
 
 **Process Descriptions:**
 
 - **3.1 View All Orders**: Admin can access comprehensive order lists with advanced filtering by status, date, customer, product type, and payment method.
-- **3.2 Edit Order**: Admin can modify order details including quantities, products, shipping addresses, and special instructions with override capabilities.
 - **3.3 Cancel Order**: Admin can cancel orders at any stage with full refund processing and inventory adjustment.
 - **3.4 Process Refund**: Admin can handle refund requests, partial refunds, and complex payment reversals.
-- **3.5 Generate Sales Report**: Admin can generate detailed sales analytics, revenue reports, and business intelligence data.
 - **3.6 Manage Payment Methods**: Admin can configure payment gateways, add new payment options, and manage transaction settings.
-- **3.7 Configure Pricing**: Admin can set up dynamic pricing rules, discounts, promotional offers, and bulk pricing structures.
-- **3.8 Bulk Order Operations**: Admin can perform mass operations like order imports, status updates, and batch processing.
 
 ### 3.2 Online Purchase Management - Staff Order Processing (Process 3.2)
 
@@ -576,7 +495,6 @@ graph TD
     Customer -->|Checkout Request| P3_18["3.18 Checkout Process"]
     Customer -->|Make Payment Request| P3_19["3.19 Make Payment"]
     Customer -->|View Order History Request| P3_20["3.20 View Order History"]
-    Customer -->|Track Order Request| P3_21["3.21 Track Order"]
     Customer -->|Cancel Order Request| P3_22["3.22 Cancel Order"]
     
     P3_16 -->|Item Added to Cart Confirmation| Customer
@@ -584,7 +502,6 @@ graph TD
     P3_18 -->|Checkout Summary| Customer
     P3_19 -->|Payment Confirmation| Customer
     P3_20 -->|Order History List| Customer
-    P3_21 -->|Order Tracking Information| Customer
     P3_22 -->|Order Cancellation Confirmation| Customer
     
     P3_16 -->|Check Product Availability| DS2["Product Data Store"]
@@ -606,7 +523,6 @@ graph TD
 - **3.18 Checkout Process**: Customer can proceed through checkout by providing shipping information, selecting delivery options, and confirming order details.
 - **3.19 Make Payment**: Customer can complete payment using various methods (credit card, bank transfer, digital wallet) with secure transaction processing.
 - **3.20 View Order History**: Customer can access their complete order history with details, status, and reorder options.
-- **3.21 Track Order**: Customer can track order status, shipping progress, and estimated delivery times for active orders.
 - **3.22 Cancel Order**: Customer can cancel orders within allowed timeframes with automatic refund processing for eligible cancellations.
 
 **Data Flows:**
@@ -629,9 +545,6 @@ graph TD
     Admin -->|View All Activities Request| P4_4["4.4 View All Activities"]
     Admin -->|Manage Activity Categories Request| P4_5["4.5 Manage Activity Categories"]
     Admin -->|Assign Staff to Activity Request| P4_6["4.6 Assign Staff to Activity"]
-    Admin -->|Generate Activity Report Request| P4_7["4.7 Generate Activity Report"]
-    Admin -->|Bulk Activity Operations Request| P4_8["4.8 Bulk Activity Operations"]
-    Admin -->|Configure Activity Settings Request| P4_9["4.9 Configure Activity Settings"]
     
     P4_1 -->|Activity Created Confirmation| Admin
     P4_2 -->|Activity Updated Confirmation| Admin
@@ -639,9 +552,6 @@ graph TD
     P4_4 -->|All Activities List| Admin
     P4_5 -->|Category Management Confirmation| Admin
     P4_6 -->|Staff Assignment Confirmation| Admin
-    P4_7 -->|Activity Analytics Report| Admin
-    P4_8 -->|Bulk Operation Status| Admin
-    P4_9 -->|Settings Updated Confirmation| Admin
     
     P4_1 -->|Write New Activity Data| DS5["Educational Activity Data Store"]
     P4_2 <-->|Read/Write Activity Data| DS5
@@ -650,9 +560,6 @@ graph TD
     P4_5 <-->|Read/Write Category Data| DS5
     P4_6 <-->|Read/Write Staff Assignment| DS5
     P4_6 -->|Read Staff Data| DS1["User Data Store"]
-    P4_7 -->|Read Activity/Registration Data| DS5
-    P4_8 <-->|Read/Write Activity Data| DS5
-    P4_9 <-->|Read/Write Configuration Data| DS5
 ```
 
 **Process Descriptions:**
@@ -663,9 +570,6 @@ graph TD
 - **4.4 View All Activities**: Admin can access comprehensive activity lists with advanced filtering and administrative views.
 - **4.5 Manage Activity Categories**: Admin can create, edit, and organize activity categories and subcategories.
 - **4.6 Assign Staff to Activity**: Admin can assign lecturers/instructors to activities and manage teaching schedules.
-- **4.7 Generate Activity Report**: Admin can generate reports on activity performance, attendance, and educational effectiveness.
-- **4.8 Bulk Activity Operations**: Admin can perform mass operations like importing activities, batch updates, and schedule management.
-- **4.9 Configure Activity Settings**: Admin can set up system-wide educational policies, registration rules, and certification requirements.
 
 ### 4.2 Educational Activity Management - Staff Activity Organization (Process 4.2)
 
@@ -803,16 +707,12 @@ graph TD
     AdminStaff -->|Respond to Feedback Request| P6_8["6.8 Respond to Feedback"]
     AdminStaff -->|Update Feedback Status Request| P6_9["6.9 Update Feedback Status"]
     AdminStaff -->|Search Feedback Request| P6_10["6.10 Search Feedback"]
-    AdminStaff -->|Generate Feedback Report Request| P6_11["6.11 Generate Feedback Report"]
-    AdminStaff -->|Assign Feedback Request| P6_12["6.12 Assign Feedback"]
     
     P6_6 -->|All Feedback List| AdminStaff
     P6_7 -->|Pending Feedback List| AdminStaff
     P6_8 -->|Response Sent Confirmation| AdminStaff
     P6_9 -->|Status Updated Confirmation| AdminStaff
     P6_10 -->|Feedback Search Results| AdminStaff
-    P6_11 -->|Feedback Analytics Report| AdminStaff
-    P6_12 -->|Assignment Confirmation| AdminStaff
     
     P6_6 -->|Read All Feedback Data| DS7["Feedback Data Store"]
     P6_7 -->|Read Pending Feedback| DS7
@@ -820,9 +720,6 @@ graph TD
     P6_8 -->|Read Customer Data| DS1["User Data Store"]
     P6_9 <-->|Read/Write Feedback Status| DS7
     P6_10 -->|Read Feedback Data| DS7
-    P6_11 -->|Read Feedback/Response Data| DS7
-    P6_12 <-->|Read/Write Assignment Data| DS7
-    P6_12 -->|Read Staff Data| DS1
 ```
 
 **Process Descriptions:**
@@ -832,49 +729,6 @@ graph TD
 - **6.8 Respond to Feedback**: Admin/Staff can provide detailed responses to customer feedback including solutions, explanations, or additional questions.
 - **6.9 Update Feedback Status**: Admin/Staff can change feedback status (pending, in-progress, resolved, closed) and add internal notes.
 - **6.10 Search Feedback**: Admin/Staff can search through feedback using various criteria like customer name, product, keywords, or feedback type.
-- **6.11 Generate Feedback Report**: Admin/Staff can create reports on feedback trends, response times, customer satisfaction, and improvement areas.
-- **6.12 Assign Feedback**: Admin/Staff can assign specific feedback to appropriate team members based on expertise or workload distribution.
-
-### 6.3 Customer Feedback Management - Feedback Workflow Process (Process 6.3)
-
-This diagram shows the overall workflow and notifications between customers and staff throughout the feedback lifecycle.
-
-```mermaid
-graph TD
-    Customer[Customer] -->|Submit New Feedback| P6_13["6.13 Feedback Submission Workflow"]
-    P6_13 -->|Feedback Received Notification| AdminStaff["Admin/Staff"]
-    AdminStaff -->|Send Response| P6_14["6.14 Response Workflow"]
-    P6_14 -->|Response Notification| Customer
-    Customer -->|Follow-up Question| P6_15["6.15 Follow-up Workflow"]
-    P6_15 -->|Follow-up Notification| AdminStaff
-    AdminStaff -->|Close Feedback| P6_16["6.16 Closure Workflow"]
-    P6_16 -->|Closure Notification| Customer
-    
-    P6_13 <-->|Read/Write Feedback Data| DS7["Feedback Data Store"]
-    P6_14 <-->|Read/Write Response Data| DS7
-    P6_15 <-->|Read/Write Follow-up Data| DS7
-    P6_16 <-->|Read/Write Closure Data| DS7
-    
-    P6_13 -->|Send Email Notification| EmailSystem["Email Notification System"]
-    P6_14 -->|Send Email Notification| EmailSystem
-    P6_15 -->|Send Email Notification| EmailSystem
-    P6_16 -->|Send Email Notification| EmailSystem
-```
-
-**Process Descriptions:**
-
-- **6.13 Feedback Submission Workflow**: Manages the complete process when customer submits feedback including validation, categorization, and automatic notifications to relevant staff.
-- **6.14 Response Workflow**: Handles the process when Admin/Staff responds to feedback including response validation, customer notification, and status updates.
-- **6.15 Follow-up Workflow**: Manages additional communication between customer and staff for clarifications or additional information.
-- **6.16 Closure Workflow**: Handles the process of closing feedback after resolution including final confirmation and satisfaction surveys.
-
-**Data Flows:**
-- Customer can submit, view, and manage their own feedback with real-time status updates.
-- Admin/Staff have shared access to all feedback with collaborative response capabilities.
-- Automatic notifications keep both parties informed throughout the feedback lifecycle.
-- All feedback interactions are logged for quality assurance and performance tracking.
-
-// ...existing code...
 
 ### 7.1 Report Generation - Admin/Staff Report Management (Process 7.1)
 
