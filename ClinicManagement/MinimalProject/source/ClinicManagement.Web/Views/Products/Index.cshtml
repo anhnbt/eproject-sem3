@@ -1,0 +1,170 @@
+@model IEnumerable<ClinicManagement.Core.Domain.Entities.Product>
+@{
+  ViewData["Title"] = "Products";
+}
+
+<div class="row mb-4">
+  <div class="col-md-8">
+    <h1>Products</h1>
+  </div>
+  <div class="col-md-4 text-right">
+    @if (User.IsInRole("Admin"))
+    {
+      <a asp-action="Create" class="btn btn-primary">Add New Product</a>
+    }
+  </div>
+</div>
+
+<div class="row mb-4">
+  <div class="col-md-4">
+    <form asp-action="Index" method="get">
+      <div class="input-group">
+        <input type="text" name="searchString" class="form-control" placeholder="Search products..."
+          value="@ViewData["CurrentFilter"]" />
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="submit">Search</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-4">
+    <select id="categoryFilter" name="categoryId" class="form-control" asp-items="ViewBag.Categories"
+      onchange="this.form.submit()">
+      <option value="">All Categories</option>
+    </select>
+  </div>
+  <div class="col-md-4">
+    <select id="sortOrder" name="sortOrder" class="form-control" onchange="this.form.submit()">
+      <option value="">Sort By</option>
+      <option value="name_asc">Name (A-Z)</option>
+      <option value="name_desc">Name (Z-A)</option>
+      <option value="price_asc">Price (Low-High)</option>
+      <option value="price_desc">Price (High-Low)</option>
+    </select>
+  </div>
+</div>
+
+<div class="row">
+  @foreach (var item in Model)
+  {
+    <div class="col-md-4 mb-4">
+      <div class="card h-100">
+        @if (!string.IsNullOrEmpty(item.ImageUrl))
+        {
+          <img src="@item.ImageUrl" class="card-img-top" alt="@item.Name">
+        }
+        else
+        {
+          <img src="~/images/product-placeholder.jpg" class="card-img-top" alt="Product placeholder">
+        }
+        <div class="card-body">
+          <h5 class="card-title">@item.Name</h5>
+          <p class="card-text">@item.Description.Substring(0, Math.Min(item.Description.Length,
+                      100))@(item.Description.Length > 100 ? "..." : "")</p>
+        <p class="card-text">Category: <strong>@item.Category.Name</strong></p>
+        <p class="card-text">Type: <strong>@item.ProductType.Name</strong></p>
+        <p class="card-text text-primary font-weight-bold">$@item.Price.ToString("F2")</p>
+
+        @if (item.StockQuantity > 0)
+          {
+            <p class="card-text text-success">In Stock (@item.StockQuantity available)</p>
+          }
+          else
+          {
+            <p class="card-text text-danger">Out of Stock</p>
+          }
+        </div>
+        <div class="card-footer bg-transparent">
+          <div class="row">
+            <div class="col-6">
+              <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm w-100">Details</a>
+            </div>
+            <div class="col-6">
+              @if (item.StockQuantity > 0)
+              {
+                <form asp-controller="Orders" asp-action="AddToCart" method="post">
+                  <input type="hidden" name="productId" value="@item.Id" />
+                  <button type="submit" class="btn btn-primary btn-sm w-100">Add to Cart</button>
+                </form>
+              }
+              else
+              {
+                <button class="btn btn-secondary btn-sm w-100" disabled>Out of Stock</button>
+              }
+            </div>
+          </div>
+
+          @if (User.IsInRole("Admin"))
+          {
+            <div class="row mt-2">
+              <div class="col-6">
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-secondary btn-sm w-100">Edit</a>
+              </div>
+              <div class="col-6">
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm w-100">Delete</a>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+</div>
+
+@if (!Model.Any())
+{
+  <div class="alert alert-info">
+    No products found matching your criteria. Please try a different search or filter.
+  </div>
+}
+
+<div class="row mt-4">
+  <div class="col-12">
+    <nav>
+      <ul class="pagination justify-content-center">
+        @if (ViewBag.HasPreviousPage ?? false)
+        {
+          <li class="page-item">
+            <a class="page-link"
+              href="@Url.Action("Index", new { page = ViewBag.PageNumber - 1, searchString = ViewData["CurrentFilter"], categoryId = ViewBag.CategoryId })">Previous</a>
+          </li>
+        }
+        else
+        {
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1">Previous</a>
+          </li>
+        }
+
+        @for (int i = 1; i <= (ViewBag.TotalPages ?? 1); i++)
+        {
+          <li class="page-item @(i == (ViewBag.PageNumber ?? 1) ? "active" : "")">
+            <a class="page-link"
+              href="@Url.Action("Index", new { page = i, searchString = ViewData["CurrentFilter"], categoryId = ViewBag.CategoryId })">@i</a>
+          </li>
+        }
+
+        @if (ViewBag.HasNextPage ?? false)
+        {
+          <li class="page-item">
+            <a class="page-link"
+              href="@Url.Action("Index", new { page = ViewBag.PageNumber + 1, searchString = ViewData["CurrentFilter"], categoryId = ViewBag.CategoryId })">Next</a>
+          </li>
+        }
+        else
+        {
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1">Next</a>
+          </li>
+        }
+      </ul>
+    </nav>
+  </div>
+</div>
+
+         
+     
+                     
+             
+             
+             

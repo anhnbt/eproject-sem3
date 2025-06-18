@@ -1,0 +1,102 @@
+@model IEnumerable<ClinicManagement.Core.Domain.Entities.OrderItem>
+@{
+    ViewData["Title"] = "Shopping Cart";
+    decimal cartTotal = Model.Sum(i => i.TotalPrice);
+}
+
+<div class="container">
+    <h1>Your Shopping Cart</h1>
+    <hr />
+    
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            <p>Your shopping cart is empty.</p>
+        </div>
+        
+        <a asp-controller="Products" asp-action="Index" class="btn btn-primary">Continue Shopping</a>
+    }
+    else
+    {
+        <div class="card shadow-sm">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            @if (!string.IsNullOrEmpty(item.Product.ImageUrl))
+                                            {
+                                                <img src="@item.Product.ImageUrl" alt="@item.Product.Name" class="img-thumbnail mr-3" style="width: 50px; height: 50px;" />
+                                            }
+                                            else
+                                            {
+                                                <img src="~/images/product-placeholder.jpg" alt="Product placeholder" class="img-thumbnail mr-3" style="width: 50px; height: 50px;" />
+                                            }
+                                            <div>
+                                                <h6 class="mb-0">@item.Product.Name</h6>
+                                                <small class="text-muted">@item.Product.Category.Name</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>$@item.UnitPrice.ToString("F2")</td>
+                                    <td>
+                                        <form asp-controller="Orders" asp-action="UpdateCartItem" method="post" class="form-inline">
+                                            <input type="hidden" name="itemId" value="@item.Id" />
+                                            <select name="quantity" class="form-control form-control-sm mr-2" onchange="this.form.submit()">
+                                                @for (int i = 1; i <= Math.Min(10, item.Product.StockQuantity); i++)
+                                                {
+                                                    <option value="@i" @(i == item.Quantity ? "selected" : "")>@i</option>
+                                                }
+                                            </select>
+                                        </form>
+                                    </td>
+                                    <td class="font-weight-bold">$@item.TotalPrice.ToString("F2")</td>
+                                    <td>
+                                        <form asp-controller="Orders" asp-action="RemoveFromCart" method="post">
+                                            <input type="hidden" name="itemId" value="@item.Id" />
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" class="text-right font-weight-bold">Subtotal:</td>
+                                <td colspan="2" class="font-weight-bold">$@cartTotal.ToString("F2")</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <a asp-controller="Products" asp-action="Index" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left mr-2"></i>Continue Shopping
+                </a>
+            </div>
+            <div class="col-md-6 text-right">
+                <a asp-controller="Orders" asp-action="Checkout" class="btn btn-primary">
+                    Proceed to Checkout <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    }
+</div>
