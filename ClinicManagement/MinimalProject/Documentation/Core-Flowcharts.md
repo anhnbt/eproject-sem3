@@ -30,7 +30,7 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    Start([Start]) --> SelectProductType[Select Product Type\n(Medicine/Equipment)]
+    Start([Start]) --> SelectProductType[Select Product Type\n(Medicines/Machines)]
     SelectProductType --> EnterDetails[Enter Product Details]
     EnterDetails --> IsValid{Information Valid?}
     IsValid -->|Yes| SaveProduct[Save Product to Database]
