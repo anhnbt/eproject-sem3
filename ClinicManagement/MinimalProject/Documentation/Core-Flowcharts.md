@@ -1,12 +1,12 @@
-# Flowcharts - Sơ đồ luồng các quy trình cốt lõi
+# Flowcharts - Core Process Flows
 
-## 1. Quy trình quản lý người dùng (User Management)
+## 1. User Management Process
 
 ```
 +----------------+     +----------------+     +----------------+
 |                |     |                |     |                |
-|    Bắt đầu     |---->| Nhập thông tin |---->| Kiểm tra thông |
-|                |     | người dùng     |     | tin đã nhập    |
+|     Start      |---->| Enter User     |---->| Validate User  |
+|                |     | Information    |     | Information    |
 |                |     |                |     |                |
 +----------------+     +----------------+     +----------------+
                                                |
@@ -14,57 +14,95 @@
                                                v
 +----------------+                       +----------------+
 |                |                       |                |
-| Lưu thông tin  |<---------------------<  Thông tin hợp  |
-| vào CSDL       |          Có           |  lệ?           |
+| Save Information|<--------------------<  Information    |
+| to Database    |          Yes          |  Valid?        |
 |                |                       |                |
 +----------------+                       +----------------+
       |                                        |
-      |                                      Không
+      |                                        No
       v                                        |
 +----------------+     +----------------+      |
 |                |     |                |<-----+
-| Gửi xác nhận   |---->|  Kết thúc      |
-| đến người dùng |     |                |
+| Send Confirmation--->|     End        |
+| to User        |     |                |
 |                |     |                |
 +----------------+     +----------------+
 ```
 
-## 2. Quy trình quản lý sản phẩm (Product Management)
+## 1A. Login Process
 
 ```
 +----------------+     +----------------+     +----------------+
 |                |     |                |     |                |
-|    Bắt đầu     |---->| Chọn loại sản  |---->| Nhập thông tin |
-|                |     | phẩm (Thuốc/   |     | chi tiết sản   |
-|                |     | Thiết bị)      |     | phẩm           |
+|     Start      |---->| Enter Email and|---->| Verify         |
+|                |     | Password       |     | Credentials    |
+|                |     |                |     |                |
 +----------------+     +----------------+     +----------------+
                                                |
                                                |
                                                v
 +----------------+                       +----------------+
 |                |                       |                |
-| Lưu sản phẩm   |<---------------------<  Thông tin hợp  |
-| vào CSDL       |          Có           |  lệ?           |
-|                |                       |                |
+| Create Session |<--------------------<  Credentials     |
+| & Generate     |          Yes          |  Valid?        |
+| Auth Token     |                       |                |
 +----------------+                       +----------------+
       |                                        |
-      |                                      Không
+      |                                        No
       v                                        |
 +----------------+     +----------------+      |
 |                |     |                |<-----+
-| Cập nhật danh  |---->|  Kết thúc      |
-| mục sản phẩm   |     |                |
+| Redirect to    |     | Display Error  |
+| Dashboard      |     | Message        |
+|                |     |                |
++----------------+     +----------------+
+                             |
+                             |
+                             v
+                      +----------------+
+                      |                |
+                      | Return to      |
+                      | Login Form     |
+                      |                |
+                      +----------------+
+```
+
+## 2. Product Management Process
+
+```
++----------------+     +----------------+     +----------------+
+|                |     |                |     |                |
+|     Start      |---->| Select Product |---->| Enter Product  |
+|                |     | Type (Medicine/|     | Details        |
+|                |     | Equipment)     |     |                |
++----------------+     +----------------+     +----------------+
+                                               |
+                                               |
+                                               v
++----------------+                       +----------------+
+|                |                       |                |
+| Save Product   |<---------------------<  Information    |
+| to Database    |          Yes          |  Valid?        |
+|                |                       |                |
++----------------+                       +----------------+
+      |                                        |
+      |                                        No
+      v                                        |
++----------------+     +----------------+      |
+|                |     |                |<-----+
+| Update Product |---->|     End        |
+| Catalog        |     |                |
 |                |     |                |
 +----------------+     +----------------+
 ```
 
-## 3. Quy trình mua hàng trực tuyến (Online Purchase Management)
+## 3. Online Purchase Management Process
 
 ```
 +----------------+     +----------------+     +----------------+
 |                |     |                |     |                |
-|    Bắt đầu     |---->| Khách hàng chọn|---->| Thêm vào giỏ   |
-|                |     | sản phẩm       |     | hàng           |
+|     Start      |---->| Customer Selects---->| Add to Cart    |
+|                |     | Products       |     |                |
 |                |     |                |     |                |
 +----------------+     +----------------+     +----------------+
                                                |
@@ -72,17 +110,17 @@
                                                v
 +----------------+     +----------------+     +----------------+
 |                |     |                |     |                |
-| Nhập thông tin |<----| Xem lại giỏ   |<----| Kiểm tra tồn   |
-| giao hàng      |     | hàng & tiến    |     | kho            |
-|                |     | hành thanh toán|     |                |
+| Enter Shipping |<----| Review Cart &  |<----| Check Inventory|
+| Information    |     | Proceed to     |     |                |
+|                |     | Checkout       |     |                |
 +----------------+     +----------------+     +----------------+
       |
       |
       v
 +----------------+                       +----------------+
 |                |                       |                |
-| Chọn phương    |---------------------->| Xác nhận       |
-| thức thanh toán|                       | thanh toán     |
+| Select Payment |---------------------->| Confirm Payment|
+| Method         |                       |                |
 |                |                       |                |
 +----------------+                       +----------------+
                                                |
@@ -90,8 +128,8 @@
                                                v
                                         +----------------+     +----------------+
                                         |                |     |                |
-                                        | Lưu đơn hàng   |---->| Gửi email xác  |
-                                        | vào CSDL       |     | nhận           |
+                                        | Save Order     |---->| Send Confirmation
+                                        | to Database    |     | Email          |
                                         |                |     |                |
                                         +----------------+     +----------------+
                                                                      |
@@ -99,19 +137,19 @@
                                                                      v
                                                               +----------------+
                                                               |                |
-                                                              |  Kết thúc      |
+                                                              |     End        |
                                                               |                |
                                                               |                |
                                                               +----------------+
 ```
 
-## 4. Quy trình tạo báo cáo (Report Generation)
+## 4. Report Generation Process
 
 ```
 +----------------+     +----------------+     +----------------+
 |                |     |                |     |                |
-|    Bắt đầu     |---->| Chọn loại báo  |---->| Chọn khoảng    |
-|                |     | cáo            |     | thời gian      |
+|     Start      |---->| Select Report  |---->| Select Time    |
+|                |     | Type           |     | Period         |
 |                |     |                |     |                |
 +----------------+     +----------------+     +----------------+
                                                |
@@ -119,8 +157,8 @@
                                                v
 +----------------+     +----------------+     +----------------+
 |                |     |                |     |                |
-| Xuất báo cáo   |<----| Hiển thị báo   |<----| Phân tích dữ   |
-| (Excel/PDF)    |     | cáo            |     | liệu từ CSDL   |
+| Export Report  |<----| Display Report |<----| Analyze Data   |
+| (Excel/PDF)    |     |                |     | from Database  |
 |                |     |                |     |                |
 +----------------+     +----------------+     +----------------+
       |
@@ -128,7 +166,7 @@
       v
 +----------------+
 |                |
-|  Kết thúc      |
+|     End        |
 |                |
 |                |
 +----------------+
