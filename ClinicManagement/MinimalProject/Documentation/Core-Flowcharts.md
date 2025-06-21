@@ -2,172 +2,67 @@
 
 ## 1. User Management Process
 
-```
-+----------------+     +----------------+     +----------------+
-|                |     |                |     |                |
-|     Start      |---->| Enter User     |---->| Validate User  |
-|                |     | Information    |     | Information    |
-|                |     |                |     |                |
-+----------------+     +----------------+     +----------------+
-                                               |
-                                               |
-                                               v
-+----------------+                       +----------------+
-|                |                       |                |
-| Save Information|<--------------------<  Information    |
-| to Database    |          Yes          |  Valid?        |
-|                |                       |                |
-+----------------+                       +----------------+
-      |                                        |
-      |                                        No
-      v                                        |
-+----------------+     +----------------+      |
-|                |     |                |<-----+
-| Send Confirmation--->|     End        |
-| to User        |     |                |
-|                |     |                |
-+----------------+     +----------------+
+```mermaid
+flowchart TD
+    Start([Start]) --> EnterUserInfo[Enter User Information]
+    EnterUserInfo --> ValidateInfo[Validate User Information]
+    ValidateInfo --> IsValid{Information Valid?}
+    IsValid -->|Yes| SaveInfo[Save Information to Database]
+    IsValid -->|No| End([End])
+    SaveInfo --> SendConfirmation[Send Confirmation to User]
+    SendConfirmation --> End
 ```
 
 ## 1A. Login Process
 
-```
-+----------------+     +----------------+     +----------------+
-|                |     |                |     |                |
-|     Start      |---->| Enter Email and|---->| Verify         |
-|                |     | Password       |     | Credentials    |
-|                |     |                |     |                |
-+----------------+     +----------------+     +----------------+
-                                               |
-                                               |
-                                               v
-+----------------+                       +----------------+
-|                |                       |                |
-| Create Session |<--------------------<  Credentials     |
-| & Generate     |          Yes          |  Valid?        |
-| Auth Token     |                       |                |
-+----------------+                       +----------------+
-      |                                        |
-      |                                        No
-      v                                        |
-+----------------+     +----------------+      |
-|                |     |                |<-----+
-| Redirect to    |     | Display Error  |
-| Dashboard      |     | Message        |
-|                |     |                |
-+----------------+     +----------------+
-                             |
-                             |
-                             v
-                      +----------------+
-                      |                |
-                      | Return to      |
-                      | Login Form     |
-                      |                |
-                      +----------------+
+```mermaid
+flowchart TD
+    Start([Start]) --> EnterCredentials[Enter Email and Password]
+    EnterCredentials --> VerifyCredentials[Verify Credentials]
+    VerifyCredentials --> IsValid{Credentials Valid?}
+    IsValid -->|Yes| CreateSession[Create Session & Generate Auth Token]
+    IsValid -->|No| DisplayError[Display Error Message]
+    CreateSession --> RedirectToDashboard[Redirect to Dashboard]
+    DisplayError --> ReturnToLogin[Return to Login Form]
 ```
 
 ## 2. Product Management Process
 
-```
-+----------------+     +----------------+     +----------------+
-|                |     |                |     |                |
-|     Start      |---->| Select Product |---->| Enter Product  |
-|                |     | Type (Medicine/|     | Details        |
-|                |     | Equipment)     |     |                |
-+----------------+     +----------------+     +----------------+
-                                               |
-                                               |
-                                               v
-+----------------+                       +----------------+
-|                |                       |                |
-| Save Product   |<---------------------<  Information    |
-| to Database    |          Yes          |  Valid?        |
-|                |                       |                |
-+----------------+                       +----------------+
-      |                                        |
-      |                                        No
-      v                                        |
-+----------------+     +----------------+      |
-|                |     |                |<-----+
-| Update Product |---->|     End        |
-| Catalog        |     |                |
-|                |     |                |
-+----------------+     +----------------+
+```mermaid
+flowchart TD
+    Start([Start]) --> SelectProductType[Select Product Type\n(Medicine/Equipment)]
+    SelectProductType --> EnterDetails[Enter Product Details]
+    EnterDetails --> IsValid{Information Valid?}
+    IsValid -->|Yes| SaveProduct[Save Product to Database]
+    IsValid -->|No| End([End])
+    SaveProduct --> UpdateCatalog[Update Product Catalog]
+    UpdateCatalog --> End
 ```
 
 ## 3. Online Purchase Management Process
 
-```
-+----------------+     +----------------+     +----------------+
-|                |     |                |     |                |
-|     Start      |---->| Customer Selects---->| Add to Cart    |
-|                |     | Products       |     |                |
-|                |     |                |     |                |
-+----------------+     +----------------+     +----------------+
-                                               |
-                                               |
-                                               v
-+----------------+     +----------------+     +----------------+
-|                |     |                |     |                |
-| Enter Shipping |<----| Review Cart &  |<----| Check Inventory|
-| Information    |     | Proceed to     |     |                |
-|                |     | Checkout       |     |                |
-+----------------+     +----------------+     +----------------+
-      |
-      |
-      v
-+----------------+                       +----------------+
-|                |                       |                |
-| Select Payment |---------------------->| Confirm Payment|
-| Method         |                       |                |
-|                |                       |                |
-+----------------+                       +----------------+
-                                               |
-                                               |
-                                               v
-                                        +----------------+     +----------------+
-                                        |                |     |                |
-                                        | Save Order     |---->| Send Confirmation
-                                        | to Database    |     | Email          |
-                                        |                |     |                |
-                                        +----------------+     +----------------+
-                                                                     |
-                                                                     |
-                                                                     v
-                                                              +----------------+
-                                                              |                |
-                                                              |     End        |
-                                                              |                |
-                                                              |                |
-                                                              +----------------+
+```mermaid
+flowchart TD
+    Start([Start]) --> SelectProducts[Customer Selects Products]
+    SelectProducts --> AddToCart[Add to Cart]
+    AddToCart --> CheckInventory[Check Inventory]
+    CheckInventory --> ReviewCart[Review Cart & Proceed to Checkout]
+    ReviewCart --> EnterShipping[Enter Shipping Information]
+    EnterShipping --> SelectPayment[Select Payment Method]
+    SelectPayment --> ConfirmPayment[Confirm Payment]
+    ConfirmPayment --> SaveOrder[Save Order to Database]
+    SaveOrder --> SendEmail[Send Confirmation Email]
+    SendEmail --> End([End])
 ```
 
 ## 4. Report Generation Process
 
-```
-+----------------+     +----------------+     +----------------+
-|                |     |                |     |                |
-|     Start      |---->| Select Report  |---->| Select Time    |
-|                |     | Type           |     | Period         |
-|                |     |                |     |                |
-+----------------+     +----------------+     +----------------+
-                                               |
-                                               |
-                                               v
-+----------------+     +----------------+     +----------------+
-|                |     |                |     |                |
-| Export Report  |<----| Display Report |<----| Analyze Data   |
-| (Excel/PDF)    |     |                |     | from Database  |
-|                |     |                |     |                |
-+----------------+     +----------------+     +----------------+
-      |
-      |
-      v
-+----------------+
-|                |
-|     End        |
-|                |
-|                |
-+----------------+
+```mermaid
+flowchart TD
+    Start([Start]) --> SelectReportType[Select Report Type]
+    SelectReportType --> SelectTimePeriod[Select Time Period]
+    SelectTimePeriod --> AnalyzeData[Analyze Data from Database]
+    AnalyzeData --> DisplayReport[Display Report]
+    DisplayReport --> ExportReport[Export Report\n(Excel/PDF)]
+    ExportReport --> End([End])
 ```
